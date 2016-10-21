@@ -35,6 +35,7 @@ public class Base64EncodedAsymmetricCiphererBeanDefinitionParser extends Abstrac
 		bean.addPropertyValue("charsetName", element.getAttribute("charset"));
 		bean.addPropertyReference("key", element.getAttribute("key-ref"));
 		bean.addPropertyValue("provider", element.getAttribute("provider"));
+		bean.addPropertyValue("keyLength", element.getAttribute("keyLength"));
 	}
 
 }

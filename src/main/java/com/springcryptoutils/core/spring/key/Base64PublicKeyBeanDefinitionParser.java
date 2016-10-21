@@ -13,28 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.springcryptoutils.core.spring.cipher.asymmetric;
+package com.springcryptoutils.core.spring.key;
 
+import com.springcryptoutils.core.key.Base64PublicKeyFactoryBean;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
 import org.w3c.dom.Element;
 
-import com.springcryptoutils.core.cipher.asymmetric.CiphererImpl;
+public class Base64PublicKeyBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
-public class AsymmetricCiphererBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+    @Override
+    protected Class getBeanClass(Element element) {
+        return Base64PublicKeyFactoryBean.class;
+    }
 
-	@Override
-	protected Class getBeanClass(Element element) {
-		return CiphererImpl.class;
-	}
-
-	@Override
-	protected void doParse(Element element, BeanDefinitionBuilder bean) {
-		bean.addPropertyValue("algorithm", element.getAttribute("algorithm"));
-		bean.addPropertyValue("mode", element.getAttribute("mode"));
-		bean.addPropertyReference("key", element.getAttribute("key-ref"));
-		bean.addPropertyValue("provider", element.getAttribute("provider"));
-		bean.addPropertyValue("keyLength", element.getAttribute("keyLength"));
-	}
+    protected void doParse(Element element, BeanDefinitionBuilder bean) {
+        bean.addPropertyValue("algorithm", element.getAttribute("algorithm"));
+        bean.addPropertyValue("file", element.getChildNodes().item(1).getTextContent());
+    }
 
 }

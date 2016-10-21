@@ -36,6 +36,7 @@ public class Base64EncodedAsymmetricCiphererWithChooserByKeyIdBeanDefinitionPars
 		bean.addPropertyValue("charsetName", element.getAttribute("charset"));
 		bean.addPropertyReference("keyMap", element.getAttribute("keyMap-ref"));
 		bean.addPropertyValue("provider", element.getAttribute("provider"));
+		bean.addPropertyValue("keyLength", element.getAttribute("keyLength"));
 	}
 
 }

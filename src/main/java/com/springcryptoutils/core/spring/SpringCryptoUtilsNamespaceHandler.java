@@ -44,7 +44,9 @@ public class SpringCryptoUtilsNamespaceHandler extends NamespaceHandlerSupport {
 
         // key
         registerBeanDefinitionParser("publicKey", new PublicKeyBeanDefinitionParser());
+        registerBeanDefinitionParser("b64PublicKey", new Base64PublicKeyBeanDefinitionParser());
         registerBeanDefinitionParser("privateKey", new PrivateKeyBeanDefinitionParser());
+        registerBeanDefinitionParser("b64PrivateKey", new Base64PrivateKeyBeanDefinitionParser());
         registerBeanDefinitionParser("secretKey", new SecretKeyBeanDefinitionParser());
         registerBeanDefinitionParser("publicKeyRegistryByAlias", new PublicKeyRegistryByAliasBeanDefinitionParser());
         registerBeanDefinitionParser("privateKeyRegistryByAlias", new PrivateKeyRegistryByAliasBeanDefinitionParser());

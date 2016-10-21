@@ -34,6 +34,7 @@ public class AsymmetricCiphererWithChooserByKeyIdBeanDefinitionParser extends Ab
 		bean.addPropertyValue("mode", element.getAttribute("mode"));
 		bean.addPropertyReference("keyMap", element.getAttribute("keyMap-ref"));
 		bean.addPropertyValue("provider", element.getAttribute("provider"));
+		bean.addPropertyValue("keyLength", element.getAttribute("keyLength"));
 	}
 
 }

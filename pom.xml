@@ -21,13 +21,13 @@
         <version>7</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.google.code.spring-crypto-utils</groupId>
+    <groupId>com.baofoo.spring-crypto-utils</groupId>
     <artifactId>spring-crypto-utils</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Spring Cryptographic Utilities</name>
     <description>A framework for easier configuration of cryptographic utilities using Spring.</description>
-    <url>http://springcryptoutils.com/</url>
+    <url>https://www.baofoo.com/</url>
     <prerequisites>
         <maven>3.2.5</maven>
     </prerequisites>
@@ -35,14 +35,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <scm>
-        <connection>scm:git:git@github.com:mcaserta/spring-crypto-utils.git</connection>
-        <developerConnection>scm:git:git@github.com:mcaserta/spring-crypto-utils.git</developerConnection>
-        <url>http://github.com/mcaserta/spring-crypto-utils</url>
+        <connection>scm:git:git@github.com:YoungHu/spring-crypto-utils.git</connection>
+        <developerConnection>scm:git:git@github.com:YoungHu/spring-crypto-utils.git</developerConnection>
+        <url>http://github.com/YoungHu/spring-crypto-utils</url>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/mcaserta/spring-crypto-utils/issues</url>
+        <url>https://github.com/YoungHu/spring-crypto-utils/issues</url>
     </issueManagement>
     <distributionManagement>
         <repository>
@@ -64,9 +64,9 @@
     </licenses>
     <developers>
         <developer>
-            <id>mirko.caserta</id>
-            <name>Mirko Caserta</name>
-            <email>mirko.caserta@gmail.com</email>
+            <id>young.hu</id>
+            <name>Yong Hu</name>
+            <email>huyong5802@gmail.com</email>
         </developer>
     </developers>
     <dependencies>

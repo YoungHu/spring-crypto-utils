@@ -17,10 +17,6 @@ package com.springcryptoutils.core.cipher.asymmetric;
 
 import java.security.Key;
 
-import javax.crypto.Cipher;
-
-import org.apache.commons.codec.binary.Base64;
-
 import com.springcryptoutils.core.cipher.Mode;
 
 /**
@@ -34,6 +30,7 @@ public class Base64EncodedCiphererImpl implements Base64EncodedCipherer {
 	private String algorithm = "RSA";
 	private String charsetName = "UTF-8";
 	private String provider;
+	private int keyLength = 0;
 	private Mode mode;
 	private Key key;
 
@@ -84,6 +81,10 @@ public class Base64EncodedCiphererImpl implements Base64EncodedCipherer {
 		this.key = key;
 	}
 
+	public void setKeyLength(int keyLength) {
+		this.keyLength = keyLength;
+	}
+
 	/**
 	 * Encrypts/decrypts a message based on the underlying mode of operation.
 	 *
@@ -95,25 +96,7 @@ public class Base64EncodedCiphererImpl implements Base64EncodedCipherer {
 	 * @see #setMode(Mode)
 	 */
 	public String encrypt(String message) {
-		try {
-			final Cipher cipher = (((provider == null) || (provider.length() == 0))
-                    ? Cipher.getInstance(algorithm)
-                    : Cipher.getInstance(algorithm, provider));
-			switch (mode) {
-				case ENCRYPT:
-					final byte[] messageAsByteArray = message.getBytes(charsetName);
-					cipher.init(Cipher.ENCRYPT_MODE, key);
-					return Base64.encodeBase64String(cipher.doFinal(messageAsByteArray));
-				case DECRYPT:
-					final byte[] encryptedMessage = Base64.decodeBase64(message);
-					cipher.init(Cipher.DECRYPT_MODE, key);
-					return new String(cipher.doFinal(encryptedMessage), charsetName);
-				default:
-					return null;
-			}
-		} catch (Exception e) {
-			throw new AsymmetricEncryptionException("error encrypting/decrypting message; mode=" + mode, e);
-		}
+		return CipherHelper.b64crypt(provider, algorithm, mode, key, keyLength, message, charsetName);
 	}
 
 }

@@ -55,7 +55,7 @@
                     </xsd:sequence>
                     <xsd:attribute name="password" type="xsd:string" use="required"/>
                     <xsd:attribute name="type" type="xsd:string" default="JKS"/>
-					<xsd:attribute name="provider" type="xsd:string" use="optional" />
+					          <xsd:attribute name="provider" type="xsd:string" use="optional" />
                 </xsd:extension>
             </xsd:complexContent>
         </xsd:complexType>
@@ -104,6 +104,19 @@
         </xsd:complexType>
     </xsd:element>
 
+    <xsd:element name="b64PublicKey">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="beans:identifiedType">
+                    <xsd:sequence>
+                        <xsd:element name="file" type="xsd:string"/>
+                    </xsd:sequence>
+                    <xsd:attribute name="algorithm" type="xsd:string" default="RSA"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
     <xsd:element name="privateKey">
         <xsd:complexType>
             <xsd:complexContent>
@@ -111,6 +124,19 @@
                     <xsd:attribute name="keystore-ref" type="xsd:string" use="required"/>
                     <xsd:attribute name="alias" type="xsd:string" use="required"/>
                     <xsd:attribute name="password" type="xsd:string" use="required"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="b64PrivateKey">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="beans:identifiedType">
+                    <xsd:sequence>
+                        <xsd:element name="file" type="xsd:string"/>
+                    </xsd:sequence>
+                    <xsd:attribute name="algorithm" type="xsd:string" default="RSA"/>
                 </xsd:extension>
             </xsd:complexContent>
         </xsd:complexType>
@@ -398,6 +424,7 @@
                     <xsd:attribute name="provider" type="xsd:string" use="optional" />
                     <xsd:attribute name="mode" type="cipherModeType" use="required"/>
                     <xsd:attribute name="key-ref" type="xsd:string" use="required"/>
+                    <xsd:attribute name="keyLength" type="xsd:integer" use="required"/>
                 </xsd:extension>
             </xsd:complexContent>
         </xsd:complexType>
@@ -411,6 +438,7 @@
                     <xsd:attribute name="provider" type="xsd:string" use="optional" />
                     <xsd:attribute name="mode" type="cipherModeType" use="required"/>
                     <xsd:attribute name="keyMap-ref" type="xsd:string" use="required"/>
+                    <xsd:attribute name="keyLength" type="xsd:integer" use="required"/>
                 </xsd:extension>
             </xsd:complexContent>
         </xsd:complexType>
@@ -425,6 +453,7 @@
                     <xsd:attribute name="mode" type="cipherModeType" use="required"/>
                     <xsd:attribute name="charset" type="xsd:string" default="UTF-8"/>
                     <xsd:attribute name="key-ref" type="xsd:string" use="required"/>
+                    <xsd:attribute name="keyLength" type="xsd:integer" use="required"/>
                 </xsd:extension>
             </xsd:complexContent>
         </xsd:complexType>
@@ -439,6 +468,7 @@
                     <xsd:attribute name="mode" type="cipherModeType" use="required"/>
                     <xsd:attribute name="charset" type="xsd:string" default="UTF-8"/>
                     <xsd:attribute name="keyMap-ref" type="xsd:string" use="required"/>
+                    <xsd:attribute name="keyLength" type="xsd:integer" use="required"/>
                 </xsd:extension>
             </xsd:complexContent>
         </xsd:complexType>

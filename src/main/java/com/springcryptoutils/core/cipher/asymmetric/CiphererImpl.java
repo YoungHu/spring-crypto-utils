@@ -17,8 +17,6 @@ package com.springcryptoutils.core.cipher.asymmetric;
 
 import java.security.Key;
 
-import javax.crypto.Cipher;
-
 import com.springcryptoutils.core.cipher.Mode;
 
 /**
@@ -31,8 +29,9 @@ public class CiphererImpl implements Cipherer {
 
 	private String algorithm = "RSA";
 	private String provider;
+	private int keyLength = 0;
 	private Mode mode;
-	private Key key;
+	private Key  key;
 
 	/**
 	 * The asymmetric key algorithm. The default is RSA.
@@ -71,35 +70,21 @@ public class CiphererImpl implements Cipherer {
 		this.key = key;
 	}
 
+	public void setKeyLength(int keyLength) {
+		this.keyLength = keyLength;
+	}
+
 	/**
 	 * Encrypts/decrypts a message based on the underlying mode of operation.
 	 *
 	 * @param message if in encryption mode, the clear-text message, otherwise
-	 *        the message to decrypt
+	 *                the message to decrypt
 	 * @return if in encryption mode, the encrypted message, otherwise the
-	 *         decrypted message
+	 * decrypted message
 	 * @throws AsymmetricEncryptionException on runtime errors
 	 * @see #setMode(Mode)
 	 */
 	public byte[] encrypt(byte[] message) {
-		try {
-			final Cipher cipher = (((provider == null) || (provider.length() == 0)) ? Cipher.getInstance(algorithm) : Cipher
-					.getInstance(algorithm, provider));
-			switch (mode) {
-				case ENCRYPT:
-					cipher.init(Cipher.ENCRYPT_MODE, key);
-					break;
-				case DECRYPT:
-					cipher.init(Cipher.DECRYPT_MODE, key);
-					break;
-				default:
-					throw new AsymmetricEncryptionException("error encrypting/decrypting message: invalid mode; mode="
-							+ mode);
-			}
-			return cipher.doFinal(message);
-		} catch (Exception e) {
-			throw new AsymmetricEncryptionException("error encrypting/decrypting message; mode=" + mode, e);
-		}
+		return CipherHelper.crypt(provider, algorithm, mode, key, keyLength, message);
 	}
-
 }

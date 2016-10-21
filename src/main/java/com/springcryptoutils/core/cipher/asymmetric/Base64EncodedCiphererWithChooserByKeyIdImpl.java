@@ -18,10 +18,6 @@ package com.springcryptoutils.core.cipher.asymmetric;
 import java.security.Key;
 import java.util.Map;
 
-import javax.crypto.Cipher;
-
-import org.apache.commons.codec.binary.Base64;
-
 import com.springcryptoutils.core.cipher.Mode;
 
 /**
@@ -32,10 +28,11 @@ import com.springcryptoutils.core.cipher.Mode;
  */
 public class Base64EncodedCiphererWithChooserByKeyIdImpl implements Base64EncodedCiphererWithChooserByKeyId {
 
-	private String algorithm = "RSA";
+	private String algorithm   = "RSA";
 	private String charsetName = "UTF-8";
+	private int    keyLength   = 0;
 	private String provider;
-	private Mode mode;
+	private Mode   mode;
 
 	private Map<String, Key> keyMap;
 
@@ -87,14 +84,18 @@ public class Base64EncodedCiphererWithChooserByKeyIdImpl implements Base64Encode
 		this.keyMap = keyMap;
 	}
 
+	public void setKeyLength(int keyLength) {
+		this.keyLength = keyLength;
+	}
+
 	/**
 	 * Encrypts/decrypts a message based on the underlying mode of operation.
 	 *
-	 * @param keyId the key id
+	 * @param keyId   the key id
 	 * @param message if in encryption mode, the clear-text message, otherwise
-	 *        the base64 encoded message to decrypt
+	 *                the base64 encoded message to decrypt
 	 * @return if in encryption mode, the base64 encoded encrypted message,
-	 *         otherwise the decrypted message
+	 * otherwise the decrypted message
 	 * @throws AsymmetricEncryptionException on runtime errors
 	 * @see #setMode(Mode)
 	 */
@@ -105,24 +106,6 @@ public class Base64EncodedCiphererWithChooserByKeyIdImpl implements Base64Encode
 			throw new AsymmetricEncryptionException("key not found: keyId=" + keyId);
 		}
 
-		try {
-			final Cipher cipher = (((provider == null) || (provider.length() == 0)) ? Cipher.getInstance(algorithm) : Cipher
-					.getInstance(algorithm, provider));
-			switch (mode) {
-				case ENCRYPT:
-					final byte[] messageAsByteArray = message.getBytes(charsetName);
-					cipher.init(Cipher.ENCRYPT_MODE, key);
-					return Base64.encodeBase64String(cipher.doFinal(messageAsByteArray));
-				case DECRYPT:
-					final byte[] encryptedMessage = Base64.decodeBase64(message);
-					cipher.init(Cipher.DECRYPT_MODE, key);
-					return new String(cipher.doFinal(encryptedMessage), charsetName);
-				default:
-					return null;
-			}
-		} catch (Exception e) {
-			throw new AsymmetricEncryptionException("error encrypting/decrypting message; mode=" + mode, e);
-		}
+		return CipherHelper.b64crypt(provider, algorithm, mode, key, keyLength, message, charsetName);
 	}
-
 }
